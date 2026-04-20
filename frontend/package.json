@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "19072026": "file:..",
     "@tailwindcss/vite": "^4.2.2",
     "axios": "^1.15.1",
     "lucide-react": "^1.8.0",

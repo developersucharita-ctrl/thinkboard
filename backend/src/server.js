@@ -4,11 +4,16 @@ import cors from "cors"
 import notesRoutes from "./routes/notesRoutes.js"
 import dbConnect from "./config/db.js"
 import rateLimiter from "./middlewares/RateLimiter.js"
+import path from "path"
 
 dotenv.config()
 
 const app = express()
-app.use(cors({ origin: "http://localhost:5173" }))
+
+const __dirname = path.resolve()
+if (process.env.NODE_ENV !== "production") {
+    app.use(cors({ origin: "http://localhost:5173" }))
+}
 app.use(express.json())
 app.use(rateLimiter)
 
@@ -17,8 +22,13 @@ app.use(rateLimiter)
 //     next()
 // })
 app.use('/api/notes', notesRoutes)
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-
+    app.get(/.*/, (req, res) => {
+        res.sendFile(path.resolve(__dirname, "../frontend/dist/index.html"));
+    });
+}
 dbConnect().then(() => {
     app.listen(process.env.PORT, () => {
         console.log(`App hase been started in PORT ${process.env.PORT}`)
