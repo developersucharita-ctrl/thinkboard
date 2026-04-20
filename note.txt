@@ -1,0 +1,16 @@
+https://www.youtube.com/watch?v=F9gB5b4jgOI&t=9090s
+19-04-2026
+
+
+npm init -y
+npm install express
+
+
+===============
+frontend
+npm create vite@latest
+npm i react-router-dom react-hot-toast
+npm i lucide-react
+npm i axios
+
+https://daisyui.com/docs/themes/
